@@ -14,6 +14,7 @@ export default {
     extend: {
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],
+        notosanskr: ['NotoSansKR', 'sans-serif'],
       },
       boxShadow: {
         base: '0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1)',
