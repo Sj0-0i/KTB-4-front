@@ -97,6 +97,7 @@ export default {
         foreground: 'var(--foreground)',
         kakaoYellow: '#fef01b',
         kakaoGray: '#556677',
+        kakaoSky: '#b5d3e9',
       },
       borderRadius: {
         lg: 'var(--radius)',
