@@ -5,25 +5,22 @@ import Cloude from '../cloude/Cloude'
 interface ChatMessageProps {
   text: string
   isMine?: boolean
-  profileSrc?: string
-  name?: string
+  className?: string
 }
 
 const ChatMessage: React.FC<ChatMessageProps> = ({
   text,
   isMine = false,
-  profileSrc,
-  name,
+  className,
 }) => {
   return (
     <div
-      className={`flex items-end ${isMine ? 'justify-end' : 'justify-start'} mb-10`}
+      className={`flex items-end ${isMine ? 'justify-end' : 'justify-start'} mb-5 ${className}`}
     >
       {!isMine ? (
         <div className="flex gap-5 w-full">
-          <Profile src={profileSrc} name={name} />
+          <Profile />
           <div className="flex flex-col">
-            <span className="text-xs text-gray-500">{name}</span>
             <Cloude text={text} />
           </div>
         </div>

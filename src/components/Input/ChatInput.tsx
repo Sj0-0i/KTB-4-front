@@ -1,4 +1,5 @@
-import { Send, Smile } from 'lucide-react'
+import { BookPlus, Smile, MessageCircle, Paperclip } from 'lucide-react'
+import Image from 'next/image'
 import { useState } from 'react'
 
 const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
@@ -7,34 +8,45 @@ const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
   const handleSend = () => {
     if (!message.trim()) return
     onSend(message)
-    setMessage('') // 입력창 초기화
+    setMessage('')
   }
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-white p-3 border-t flex items-center gap-2">
-      {/* 이모티콘 버튼 */}
-      <button className="p-2 text-gray-500">
-        <Smile size={24} />
+    <div className="fixed bottom-0 left-0 w-full bg-white p-3 border-t flex h-full items-center flex-col gap-2">
+      <button className="absolute top-[-40px] right-[5%]">
+        <Image
+          src={'/images/speaker.png'}
+          width={80}
+          height={80}
+          alt="음성인식 iamge"
+        />
       </button>
-
-      {/* 입력 필드 */}
-      <input
-        type="text"
-        className="flex-grow px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-kakaoYellow"
+      <textarea
+        className="flex-grow focus:outline-none focus:ring-2 focus:ring-kakaoYellow mx-8 my-6 w-[calc(100%-2rem)] px-4 py-2 text-Mcloude font-[400]"
         placeholder="메시지를 입력하세요..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyPress={(e) => e.key === 'Enter' && handleSend()}
       />
-
-      {/* 전송 버튼 */}
-      <button
-        onClick={handleSend}
-        className="p-2 text-kakaoYellow disabled:opacity-50"
-        disabled={!message.trim()}
-      >
-        <Send size={24} />
-      </button>
+      <div className="flex flex-row justify-between items-center w-full">
+        <div className="flex justify-between w-[50%]">
+          <button>
+            <Smile size={36} color="gray" />
+          </button>
+          <button>
+            <BookPlus size={36} color="gray" />
+          </button>
+          <button>
+            <MessageCircle size={36} color="gray" />
+          </button>
+          <button>
+            <Paperclip size={36} color="gray" />
+          </button>
+        </div>
+        <button className="w-32 h-16 rounded-xl bg-kakaoYellow text-black text-3xl">
+          전송
+        </button>
+      </div>
     </div>
   )
 }
