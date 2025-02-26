@@ -6,10 +6,17 @@ export default {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'media',
   theme: {
     container: {
       center: true,
       padding: '2rem',
+      screens: {
+        sm: '100%',
+        md: '540px',
+        lg: '600px',
+        xl: '600px',
+      },
     },
     extend: {
       fontFamily: {
@@ -21,7 +28,7 @@ export default {
       },
       fontSize: {
         h1: [
-          '3rem',
+          '4rem',
           {
             lineHeight: '3rem',
             letterSpacing: '-0.012em',
@@ -29,7 +36,7 @@ export default {
           },
         ],
         h2: [
-          '1.875rem',
+          '3rem',
           {
             lineHeight: '2.25rem',
             letterSpacing: '-0.0075em',
@@ -37,7 +44,7 @@ export default {
           },
         ],
         h3: [
-          '1.5rem',
+          '1.875rem',
           {
             lineHeight: '2rem',
             letterSpacing: '-0.006em',
@@ -45,7 +52,7 @@ export default {
           },
         ],
         h4: [
-          '1.25rem',
+          '1.5rem',
           {
             lineHeight: '1.75rem',
             letterSpacing: '-0.005em',
@@ -53,7 +60,7 @@ export default {
           },
         ],
         p: [
-          '1rem',
+          '1.25rem',
           {
             lineHeight: '1.75rem',
             letterSpacing: '0em',
@@ -61,7 +68,7 @@ export default {
           },
         ],
         body: [
-          '0.875rem',
+          '1rem',
           {
             lineHeight: '1.5rem',
             letterSpacing: '0em',
@@ -88,6 +95,8 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        kakaoYellow: '#fef01b',
+        kakaoGray: '#556677',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -142,5 +151,6 @@ export default {
       },
     },
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],
 } satisfies Config
