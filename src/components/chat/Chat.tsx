@@ -1,6 +1,5 @@
-import React from 'react'
 import Profile from '../profile/Profile'
-import Cloude from '../cloude/Cloude'
+import { Cloude, CloudeLoading } from '../cloude/Cloude'
 
 interface ChatMessageProps {
   text: string
@@ -8,7 +7,7 @@ interface ChatMessageProps {
   className?: string
 }
 
-const ChatMessage: React.FC<ChatMessageProps> = ({
+export const ChatMessage: React.FC<ChatMessageProps> = ({
   text,
   isMine = false,
   className,
@@ -31,4 +30,17 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
   )
 }
 
-export default ChatMessage
+export const ChatMessageLoading: React.FC<{ className?: string }> = ({
+  className,
+}) => {
+  return (
+    <div className={`flex items-end 'justify-startmb-5 ${className}`}>
+      <div className="flex gap-5 w-full">
+        <Profile />
+        <div className="flex flex-col">
+          <CloudeLoading />
+        </div>
+      </div>
+    </div>
+  )
+}

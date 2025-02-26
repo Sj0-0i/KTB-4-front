@@ -27,11 +27,16 @@ const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
         />
       </button>
       <textarea
-        className="flex-grow focus:outline-none focus:ring-2 focus:ring-kakaoYellow mx-8 my-6 w-[calc(100%-2rem)] px-4 py-2 text-Mcloude font-[400]"
+        className="flex-grow focus:outline-none focus:ring-2 focus:ring-kakaoYellow mx-8a my-6 w-[calc(100%-2rem)] px-4 py-2 text-Mcloude font-[400]"
         placeholder="메시지를 입력하세요..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault()
+            handleSend()
+          }
+        }}
       />
       <div className="flex flex-row justify-between items-center w-full">
         <div className="flex justify-between w-[50%]">
@@ -48,7 +53,10 @@ const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
             <Paperclip size={36} color="gray" />
           </button>
         </div>
-        <button className="w-32 h-16 rounded-xl bg-kakaoYellow text-black text-3xl">
+        <button
+          onClick={handleSend}
+          className="w-32 h-16 rounded-xl bg-kakaoYellow text-black text-3xl"
+        >
           전송
         </button>
       </div>

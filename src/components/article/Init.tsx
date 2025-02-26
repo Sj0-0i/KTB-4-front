@@ -1,26 +1,31 @@
 'use client'
 
 import { useState } from 'react'
-import ChatMessage from '../chat/Chat'
+import { ChatMessage } from '../chat/Chat'
 import { Header2Before } from '../Header/Header'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 
 const Init = () => {
   const nav = useRouter()
-
   const [age, setAge] = useState<number | null>(null)
-  const [like, setLike] = useState<string | null>(null)
+  const [like, setLike] = useState<string[]>([])
+
+  const handleLikeClick = (interest: string) => {
+    if (like.includes(interest)) {
+      setLike(like.filter((item) => item !== interest))
+    } else if (like.length < 2) {
+      setLike([...like, interest])
+    }
+  }
 
   const submit = () => {
-    if (age && like) {
+    if (age && like.length === 2) {
       const randomId = crypto.randomUUID()
       const user = { id: randomId, age, like }
 
       Cookies.set('user', JSON.stringify(user), { expires: 1 / 24 })
-
       console.log('쿠키 저장 완료')
-
       nav.push('/kakao')
     }
   }
@@ -35,7 +40,7 @@ const Init = () => {
     >
       <Header2Before />
       <main>
-        <section className="pt-[116px] overflow-y-auto overflow-x-hidden h-full] scrollbar-hide">
+        <section className="pt-[116px] overflow-y-auto overflow-x-hidden h-full scrollbar-hide">
           <ChatMessage
             className="animate-fade-in"
             text={`logan님, 안녕하세요?:) \n logan님이 좋아하시는걸 조금 물어볼게요!`}
@@ -45,65 +50,49 @@ const Init = () => {
             className="animate-fade-in"
           />
           <div className="grid grid-cols-2 gap-4 my-4 w-fit mx-auto animate-fade-in">
-            <button
-              onClick={() => setAge(70)}
-              className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] ${age === 70 ? 'shadow-2xl bg-kakaoYellow' : 'bg-[#FFFAD1]'}`}
-            >
-              70대
-            </button>
-            <button
-              onClick={() => setAge(80)}
-              className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] ${age === 80 ? 'shadow-2xl bg-kakaoYellow' : 'bg-[#FFFAD1]'}`}
-            >
-              80대
-            </button>
-            <button
-              onClick={() => setAge(90)}
-              className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] ${age === 90 ? 'shadow-2xl bg-kakaoYellow' : 'bg-[#FFFAD1]'}`}
-            >
-              90대
-            </button>
-            <button
-              onClick={() => setAge(100)}
-              className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] whitespace-pre-line ${age === 100 ? 'shadow-2xl bg-kakaoYellow' : 'bg-[#FFFAD1]'}`}
-            >
-              100대
-            </button>
+            {[70, 80, 90, 100].map((num) => (
+              <button
+                key={num}
+                onClick={() => setAge(num)}
+                className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] ${
+                  age === num ? 'shadow-2xl bg-kakaoYellow' : 'bg-[#FFFAD1]'
+                }`}
+              >
+                {num}대
+              </button>
+            ))}
           </div>
+
           {age && (
             <div className="animate-fade-in">
               <ChatMessage
-                text={'아래 중 좋아하시는 관심사 두개만 선택해주세요! :)'}
+                text={'아래 중 좋아하시는 관심사 두 개만 선택해주세요! :)'}
               />
               <div className="grid grid-cols-2 gap-4 mt-4 my-12 w-fit mx-auto">
-                <button
-                  onClick={() => setLike('health')}
-                  className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] ${like === 'health' ? 'shadow-2xl bg-kakaoYellow' : 'bg-[#FFFAD1]'}`}
-                >
-                  건강
-                </button>
-                <button
-                  onClick={() => setLike('financial')}
-                  className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] ${like === 'financial' ? 'shadow-2xl bg-kakaoYellow' : 'bg-[#FFFAD1]'}`}
-                >
-                  경제
-                </button>
-                <button
-                  onClick={() => setLike('law')}
-                  className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] ${like === 'law' ? 'shadow-2xl bg-kakaoYellow' : 'bg-[#FFFAD1]'}`}
-                >
-                  법률
-                </button>
-                <button
-                  onClick={() => setLike('family')}
-                  className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] whitespace-pre-line ${like === 'family' ? 'shadow-2xl bg-kakaoYellow' : 'bg-[#FFFAD1]'}`}
-                >
-                  가족
-                </button>
+                {['health', 'financial', 'law', 'family'].map((interest) => (
+                  <button
+                    key={interest}
+                    onClick={() => handleLikeClick(interest)}
+                    className={`btn w-[150px] h-[150px] rounded-[42px] text-Mcloude text-[32px] ${
+                      like.includes(interest)
+                        ? 'shadow-2xl bg-kakaoYellow'
+                        : 'bg-[#FFFAD1]'
+                    }`}
+                  >
+                    {interest === 'health'
+                      ? '건강'
+                      : interest === 'financial'
+                        ? '경제'
+                        : interest === 'law'
+                          ? '법률'
+                          : '가족'}
+                  </button>
+                ))}
               </div>
             </div>
           )}
-          {age && like && (
+
+          {age && like.length === 2 && (
             <div className="flex justify-end animate-fade-in">
               <button
                 onClick={submit}
@@ -118,4 +107,5 @@ const Init = () => {
     </article>
   )
 }
+
 export default Init
