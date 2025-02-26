@@ -18,7 +18,7 @@ const eslintConfig = [
     'plugin:@typescript-eslint/recommended',
   ),
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['src/**/*.{js,jsx,ts,tsx}'],
     ignores: ['node_modules/*', '.next/*', 'out/*'],
     languageOptions: {
       globals: {
@@ -39,6 +39,12 @@ const eslintConfig = [
           unnamedComponents: 'arrow-function',
         },
       ],
+    },
+  },
+  {
+    files: ['src/app/layout.tsx'],
+    rules: {
+      'react/function-component-definition': 'off',
     },
   },
 ]

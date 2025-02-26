@@ -1,9 +1,13 @@
-import Image from 'next/image'
+'use client'
 
-export default function Home() {
+import { Header } from '@/components/Header/Header'
+
+const Home = () => {
   return (
-    <div className="container">
-      <h1 className="text-h1 animate-fade-in">Home page</h1>
+    <div className="container animate-fade-in">
+      <Header />
     </div>
   )
 }
+
+export default Home
