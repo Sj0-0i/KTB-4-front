@@ -1,4 +1,4 @@
-import { SpeechClient, SpeechCLient } from '@google-cloud/speech'
+import { SpeechClient } from '@google-cloud/speech'
 
 const client = new SpeechClient()
 

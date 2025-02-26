@@ -1,9 +1,8 @@
 'use client'
 
 import { useRecorder } from '@/hook/useRecorder/useRecoder'
-import Image from 'next/image'
 
-export default function Home() {
+const Home = () => {
   const { recording, transcription, startRecording, stopRecording } =
     useRecorder()
 
@@ -17,3 +16,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home
