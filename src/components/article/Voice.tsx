@@ -27,7 +27,6 @@ const Voice = () => {
       <Header2Voice />
       <main>
         <section className="relative overflow-y-auto overflow-x-hidden h-[100vh] scrollbar-hide flex flex-col justify-center items-center">
-          {/* 녹음 시 애니메이션 효과 */}
           <div className="relative w-[200px] h-[200px] flex items-center justify-center">
             <div
               className={`absolute w-full h-full rounded-full bg-[#DAFFE4] shadow-[0_0_100px_100px_rgba(0,255,127,0.8)]
@@ -36,7 +35,6 @@ const Voice = () => {
             <div className="w-[200px] h-[200px] bg-[#DAFFE4] rounded-full"></div>
           </div>
 
-          {/* 변환된 텍스트 표시 */}
           {transcription && (
             <div className="absolute top-20 bg-white p-4 rounded-lg shadow-md text-lg text-center max-w-[80%]">
               {transcription}
@@ -44,7 +42,6 @@ const Voice = () => {
           )}
 
           <div className="w-full">
-            {/* 음성 녹음 버튼 */}
             <button
               onClick={handleRecord}
               className="absolute bottom-[6rem] left-16"
@@ -56,8 +53,11 @@ const Voice = () => {
                 alt="speaker image"
               />
             </button>
-
-            {/* 캐릭터 이미지 */}
+            {isAnimating && (
+              <div className="absolute bottom-[230px] animate-fade-in left-[50%] translate-x-[-50%] text-Mcloude font-[500]">
+                &quot;말씀해 주세요&quot;
+              </div>
+            )}
             <div className="absolute bottom-0 left-[50%] translate-x-[-50%]">
               <Image
                 src={'/images/rian.png'}
@@ -66,8 +66,6 @@ const Voice = () => {
                 alt="speaker image"
               />
             </div>
-
-            {/* 취소 버튼 */}
             <button
               onClick={() => nav.back()}
               className="absolute bottom-[6rem] right-16"
