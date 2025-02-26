@@ -17,10 +17,10 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
 }) => {
   return (
     <div
-      className={`flex items-end ${isMine ? 'justify-end' : 'justify-start'} my-2`}
+      className={`flex items-end ${isMine ? 'justify-end' : 'justify-start'} mb-10`}
     >
       {!isMine ? (
-        <div className="flex gap-5 w-[80%]">
+        <div className="flex gap-5 w-full">
           <Profile src={profileSrc} name={name} />
           <div className="flex flex-col">
             <span className="text-xs text-gray-500">{name}</span>
@@ -28,9 +28,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
           </div>
         </div>
       ) : (
-        <div className="flex w-[80%]">
-          <Cloude text={text} isRight />
-        </div>
+        <Cloude text={text} isRight />
       )}
     </div>
   )

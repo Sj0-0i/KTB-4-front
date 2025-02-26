@@ -59,12 +59,12 @@ export default {
             fontWeight: '600',
           },
         ],
-        p: [
-          '1.25rem',
+        cloude: [
+          '2.25rem',
           {
-            lineHeight: '1.75rem',
+            lineHeight: '2.5rem',
             letterSpacing: '0em',
-            fontWeight: '400',
+            fontWeight: '700',
           },
         ],
         body: [
@@ -97,7 +97,7 @@ export default {
         foreground: 'var(--foreground)',
         kakaoYellow: '#fef01b',
         kakaoGray: '#556677',
-        kakaoSky: '#b5d3e9',
+        kakaoSky: '#83C1F8',
       },
       borderRadius: {
         lg: 'var(--radius)',
