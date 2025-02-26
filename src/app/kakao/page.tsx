@@ -1,7 +1,7 @@
 import Chat from '@/components/article/Chat'
 
-const KakaoPage = () => {
+const Kakao = () => {
   return <Chat />
 }
 
-export default KakaoPage
+export default Kakao

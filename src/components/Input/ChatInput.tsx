@@ -1,8 +1,10 @@
 import { BookPlus, Smile, MessageCircle, Paperclip } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
+  const nav = useRouter()
   const [message, setMessage] = useState('')
 
   const handleSend = () => {
@@ -13,7 +15,10 @@ const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
 
   return (
     <div className="fixed bottom-0 left-0 w-full bg-white p-3 border-t flex h-full items-center flex-col gap-2">
-      <button className="absolute top-[-40px] right-[5%]">
+      <button
+        onClick={() => nav.push('/voice')}
+        className="absolute top-[-40px] right-[5%]"
+      >
         <Image
           src={'/images/speaker.png'}
           width={80}
