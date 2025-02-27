@@ -20,7 +20,7 @@ export const Header = () => {
         />
       </div>
       <button
-        onClick={() => nav.push('/')}
+        onClick={() => nav.push('/surveys')}
         className="relative w-7 h-7  sm:w-14 sm:h-14"
       >
         <Image src={'/images/tap.png'} fill alt="logo image" />

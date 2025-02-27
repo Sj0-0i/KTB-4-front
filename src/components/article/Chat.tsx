@@ -19,12 +19,13 @@ const Chat = ({
 }) => {
   const [messages, setMessages] = useState<
     { text: string; isMine?: boolean; isLoading?: boolean }[]
-  >(
-    data.messages.map((msg) => ({
+  >([
+    { text: '편하게 질문해주세요 :)', isMine: false },
+    ...data.messages.map((msg) => ({
       text: msg.content,
       isMine: msg.type === 'human',
     })),
-  )
+  ])
 
   const isLoading =
     messages.length > 0 && messages[messages.length - 1].isLoading

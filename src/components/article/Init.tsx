@@ -53,10 +53,7 @@ const Init = () => {
       <Header2Before />
       <main>
         <section className="pt-[116px] overflow-y-auto overflow-x-hidden scrollbar-hide h-[100dvh]">
-          <ChatMessage
-            className="animate-fade-in"
-            text={`logan님, 안녕하세요?:) \n logan님이 좋아하시는걸 조금 물어볼게요!`}
-          />
+          <ChatMessage className="animate-fade-in" text={`안녕하세요?:) \n`} />
           <ChatMessage
             text={'아래 중 본인의 연령대를 선택해주세요! :)'}
             className="animate-fade-in"

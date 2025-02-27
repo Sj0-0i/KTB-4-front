@@ -68,9 +68,9 @@ export default {
           },
         ],
         Mcloude: [
-          '1.25rem',
+          '1.7rem',
           {
-            lineHeight: '1.5rem',
+            lineHeight: '2rem',
             letterSpacing: '0em',
             fontWeight: '700',
           },
