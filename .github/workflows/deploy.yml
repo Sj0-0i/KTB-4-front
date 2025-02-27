@@ -25,7 +25,7 @@ jobs:
           docker buildx build \
             --platform linux/amd64 \
             --cache-from=type=registry,ref=${{ secrets.DOCKERHUB_REPO }}/frontend:cache \
-            --cache-to=type=inline \
+            --cache-to=type=registry,ref=${{ secrets.DOCKERHUB_REPO }}/frontend:cache,mode=max \
             -t ${{ secrets.DOCKERHUB_REPO }}/frontend:latest \
             --push .
 
@@ -39,7 +39,9 @@ jobs:
           script: |
             echo "Stopping existing frontend container..."
             cd /home/ec2-user/app && docker-compose stop frontend || true
-            docker-compose rm -f frontend || true
+            
+            echo "Updating .env file..."
+            echo "${{ secrets.ENV_FILE }}" > .env
             
             echo "Pulling latest image..."
             docker pull ${{ secrets.DOCKERHUB_REPO }}/frontend:latest
