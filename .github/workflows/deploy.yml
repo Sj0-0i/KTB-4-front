@@ -60,8 +60,7 @@ jobs:
             echo "Stopping existing frontend container..."
             docker-compose stop frontend
             
-            echo "Updating .env file..."
-            echo "${{ secrets.ENV_FILE }}" > .env
+            echo "Updating .GCP_STT_KEY file..."
             echo "${{ secrets.GCP_STT_KEY }}" > .gcp-stt-key.json
 
             
