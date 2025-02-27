@@ -61,6 +61,7 @@ jobs:
             docker-compose stop frontend
             
             echo "Updating .GCP_STT_KEY file..."
+            echo "${{ secrets.ENV }}" > .env
             echo "${{ secrets.GCP_STT_KEY }}" > .gcp-stt-key.json
 
             
