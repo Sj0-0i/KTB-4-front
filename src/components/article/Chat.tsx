@@ -5,18 +5,22 @@ import ChatInput from '@/components/Input/ChatInput'
 import { ChatMessage, ChatMessageLoading } from '@/components/chat/Chat'
 import { useEffect, useRef, useState } from 'react'
 
-const Chat = ({
-  data,
-}: {
+interface Message {
+  id: string
+  session_id: string
+  type: string
+  content: string
+}
+interface ChatProps {
   data: {
-    messages: {
-      id: string
-      session_id: string
-      type: string
-      content: string
-    }[]
+    messages: Message[]
   }
-}) => {
+  userId: string
+}
+
+const Chat = ({ data, userId }: ChatProps) => {
+  console.log(userId)
+
   const [messages, setMessages] = useState<
     { text: string; isMine?: boolean; isLoading?: boolean }[]
   >([
@@ -41,20 +45,23 @@ const Chat = ({
     ])
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: message }),
-      })
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/chat`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: message, userId: userId }),
+        },
+      )
 
       const data = await response.json()
 
       setMessages((prev) => {
         const lastMessage = prev[prev.length - 1]
         if (lastMessage.isLoading) {
-          return [...prev.slice(0, -1), { text: data.text, isMine: false }]
+          return [...prev.slice(0, -1), { text: data.content, isMine: false }]
         }
-        return [...prev, { text: data.text, isMine: false }]
+        return [...prev, { text: data.content, isMine: false }]
       })
     } catch (error) {
       console.error('API 요청 실패:', error)

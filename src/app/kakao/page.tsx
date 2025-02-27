@@ -3,11 +3,13 @@ import { cookies } from 'next/headers'
 
 const Kakao = async () => {
   const cookie = await cookies()
-  const userId = cookie.get('user')?.value
+  const user = cookie.get('user')?.value
 
-  const data = await fetchMessage(userId as string)
+  const userId = user && JSON.parse(user).id
 
-  return <Chat data={data} />
+  const data = await fetchMessage(userId)
+
+  return <Chat data={data} userId={userId} />
 }
 
 const fetchMessage = async (userId: string) => {
@@ -21,8 +23,6 @@ const fetchMessage = async (userId: string) => {
     if (!res.ok) {
       throw new Error('서버 상태 이상')
     }
-    console.log(res.body)
-
     return res.json()
   } catch (error) {
     console.error('메시지 로드 실패:', error)

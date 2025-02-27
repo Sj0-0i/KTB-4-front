@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { useRecorder } from '@/hook/useRecorder/useRecoder'
 
-const Voice = () => {
+const Voice = ({ userId }: { userId: string }) => {
   const nav = useRouter()
   const { recording, transcription, startRecording, stopRecording } =
     useRecorder()
@@ -16,8 +16,7 @@ const Voice = () => {
 
   useEffect(() => {
     if (transcription) {
-      setDisplayText(transcription)
-      setFinish(true)
+      sendTranscriptionToServer(transcription)
     }
   }, [transcription])
 
@@ -30,6 +29,30 @@ const Voice = () => {
       setDisplayText('')
       startRecording()
       setIsAnimating(true)
+    }
+  }
+
+  const sendTranscriptionToServer = async (message: string) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/chat`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, userId }),
+        },
+      )
+
+      if (!response.ok) {
+        throw new Error('서버 응답 오류')
+      }
+
+      const data = await response.json()
+
+      setDisplayText(data.content)
+      setFinish(true)
+    } catch (error) {
+      console.error('API 요청 실패:', error)
     }
   }
 
