@@ -11,6 +11,7 @@ const Voice = () => {
   const { recording, transcription, startRecording, stopRecording } =
     useRecorder()
   const [isAnimating, setIsAnimating] = useState(false)
+  const [finish, setFinish] = useState(false)
 
   const handleRecord = () => {
     if (recording) {
@@ -34,13 +35,6 @@ const Voice = () => {
             />
             <div className="w-[200px] h-[200px] bg-[#DAFFE4] rounded-full"></div>
           </div>
-
-          {transcription && (
-            <div className="absolute top-20 bg-white p-4 rounded-lg shadow-md text-lg text-center max-w-[80%]">
-              {transcription}
-            </div>
-          )}
-
           <div className="w-full">
             <button
               onClick={handleRecord}
@@ -56,6 +50,11 @@ const Voice = () => {
             {isAnimating && (
               <div className="absolute bottom-[230px] animate-fade-in left-[50%] translate-x-[-50%] text-Mcloude font-[500]">
                 &quot;말씀해 주세요&quot;
+              </div>
+            )}
+            {!isAnimating && !finish && recording && (
+              <div className="absolute text-center bottom-[230px] animate-fade-in left-[50%] translate-x-[-50%] text-Mcloude font-[500]">
+                &quot;답변을 생성하고 있습니다. 잠시만 기다려주세요.&quot;
               </div>
             )}
             <div className="absolute bottom-0 left-[50%] translate-x-[-50%]">

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ChatMessage } from '../chat/Chat'
 import { Header2Before } from '../Header/Header'
 import Cookies from 'js-cookie'
@@ -10,6 +10,7 @@ const Init = () => {
   const nav = useRouter()
   const [age, setAge] = useState<number | null>(null)
   const [like, setLike] = useState<string[]>([])
+  const initEnd = useRef<HTMLDivElement | null>(null)
 
   const handleLikeClick = (interest: string) => {
     if (like.includes(interest)) {
@@ -30,9 +31,13 @@ const Init = () => {
     }
   }
 
+  useEffect(() => {
+    initEnd.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [age, like])
+
   return (
     <article
-      className="container min-h-full scrollbar-hide"
+      className="container h-full"
       style={{
         background:
           'linear-gradient(to right bottom, #85DFBF 70%, #FDAFD8 100%)',
@@ -40,7 +45,7 @@ const Init = () => {
     >
       <Header2Before />
       <main>
-        <section className="pt-[116px] overflow-y-auto overflow-x-hidden h-full scrollbar-hide">
+        <section className="pt-[116px] overflow-y-auto overflow-x-hidden scrollbar-hide h-[100dvh]">
           <ChatMessage
             className="animate-fade-in"
             text={`logan님, 안녕하세요?:) \n logan님이 좋아하시는걸 조금 물어볼게요!`}
@@ -102,6 +107,7 @@ const Init = () => {
               </button>
             </div>
           )}
+          <div ref={initEnd} />
         </section>
       </main>
     </article>

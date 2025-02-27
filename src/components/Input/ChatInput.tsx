@@ -1,16 +1,31 @@
 import { BookPlus, Smile, MessageCircle, Paperclip } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
-const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
+const ChatInput = ({
+  onSend,
+  isLoading,
+}: {
+  onSend: (message: string) => void
+  isLoading: boolean
+}) => {
   const nav = useRouter()
   const [message, setMessage] = useState('')
+  const isSending = useRef(false)
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
 
   const handleSend = () => {
-    if (!message.trim()) return
+    if (!message.trim() || isSending.current || isLoading) return
+
+    isSending.current = true
     onSend(message)
-    setMessage('')
+
+    setTimeout(() => {
+      setMessage('')
+      isSending.current = false
+      textareaRef.current?.focus()
+    }, 100)
   }
 
   return (
@@ -27,8 +42,11 @@ const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
         />
       </button>
       <textarea
+        ref={textareaRef}
         className="flex-grow focus:outline-none focus:ring-2 focus:ring-kakaoYellow mx-8a my-6 w-[calc(100%-2rem)] px-4 py-2 text-Mcloude font-[400]"
-        placeholder="메시지를 입력하세요..."
+        placeholder={
+          isLoading ? '잠시만 기다려주세요.' : `메시지를 입력하세요...`
+        }
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyDown={(e) => {
@@ -37,6 +55,7 @@ const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
             handleSend()
           }
         }}
+        disabled={isLoading}
       />
       <div className="flex flex-row justify-between items-center w-full">
         <div className="flex justify-between w-[50%]">
@@ -55,7 +74,8 @@ const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
         </div>
         <button
           onClick={handleSend}
-          className="w-32 h-16 rounded-xl bg-kakaoYellow text-black text-3xl"
+          className={`w-32 h-16 bg-kakaoYellow rounded-xl text-black text-3xl`}
+          disabled={isLoading}
         >
           전송
         </button>

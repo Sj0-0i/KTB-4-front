@@ -14,7 +14,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
 }) => {
   return (
     <div
-      className={`flex items-end ${isMine ? 'justify-end' : 'justify-start'} mb-5 ${className}`}
+      className={`animate-fade-in flex items-end ${isMine ? 'justify-end' : 'justify-start'} mb-5 ${className}`}
     >
       {!isMine ? (
         <div className="flex gap-5 w-full">
@@ -34,7 +34,9 @@ export const ChatMessageLoading: React.FC<{ className?: string }> = ({
   className,
 }) => {
   return (
-    <div className={`flex items-end 'justify-startmb-5 ${className}`}>
+    <div
+      className={`animate-fade-in flex items-end 'justify-startmb-5 ${className}`}
+    >
       <div className="flex gap-5 w-full">
         <Profile />
         <div className="flex flex-col">
