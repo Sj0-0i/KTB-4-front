@@ -111,7 +111,7 @@ const Voice = ({ userId }: { userId: string }) => {
               />
             </button>
             <button
-              onClick={() => nav.back()}
+              onClick={() => nav.push('/kakao')}
               className="absolute bottom-[6rem] right-16"
             >
               <Image
