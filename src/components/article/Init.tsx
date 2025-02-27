@@ -19,10 +19,17 @@ const Init = () => {
       setLike([...like, interest])
     }
   }
+  const generateUUID = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = crypto.getRandomValues(new Uint8Array(1))[0] % 16 | 0
+      const v = c === 'x' ? r : (r & 0x3) | 0x8
+      return v.toString(16)
+    })
+  }
 
   const submit = () => {
     if (age && like.length === 2) {
-      const randomId = crypto.randomUUID()
+      const randomId = generateUUID()
       const user = { id: randomId, age, like }
 
       Cookies.set('user', JSON.stringify(user), { expires: 1 / 24 })
