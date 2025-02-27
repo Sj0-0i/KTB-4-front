@@ -37,13 +37,14 @@ const ChatInput = ({
     <div className="fixed bottom-0 left-0 w-full bg-white p-3 border-t flex h-full items-center flex-col gap-2">
       <button
         onClick={() => nav.push('/voice')}
-        className="absolute top-[-40px] right-[5%]"
+        className="absolute top-[-25px] sm:top-[-40px] right-[5%]"
       >
         <Image
           src={'/images/speaker.png'}
           width={80}
           height={80}
           alt="음성인식 iamge"
+          className="w-16 h-16 sm:w-20 sm:h-20"
         />
       </button>
       <textarea

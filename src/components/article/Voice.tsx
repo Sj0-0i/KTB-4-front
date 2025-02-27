@@ -62,12 +62,12 @@ const Voice = ({ userId }: { userId: string }) => {
       <main>
         <section className="relative overflow-y-auto overflow-x-hidden h-[100vh] scrollbar-hide flex flex-col justify-center items-center">
           {!displayText ? (
-            <div className="relative w-[200px] h-[200px] flex items-center justify-center">
+            <div className="relative w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] flex items-center justify-center">
               <div
-                className={`absolute w-full h-full rounded-full bg-[#DAFFE4] shadow-[0_0_100px_100px_rgba(0,255,127,0.8)]
+                className={`absolute w-full h-full rounded-full bg-[#DAFFE4] shadow-[0_0_50px_50px_rgba(0,255,127,0.8)] sm:shadow-[0_0_100px_100px_rgba(0,255,127,0.8)]
                 ${isAnimating ? 'animate-ping' : ''}`}
               />
-              <div className="w-[200px] h-[200px] bg-[#DAFFE4] rounded-full"></div>
+              <div className="w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] bg-[#DAFFE4] rounded-full"></div>
             </div>
           ) : (
             <p className="animate-fade-in text-Mcloude text-center">
@@ -77,13 +77,14 @@ const Voice = ({ userId }: { userId: string }) => {
           <div className="w-full">
             <button
               onClick={handleRecord}
-              className="absolute bottom-[6rem] left-16"
+              className="absolute bottom-[6rem] sm:left-16"
             >
               <Image
                 src={'/images/speaker.png'}
                 width={127}
                 height={127}
                 alt="speaker image"
+                className="w-20 h-20 sm:w-32 sm:h-32"
               />
             </button>
             {isAnimating && (
@@ -108,17 +109,19 @@ const Voice = ({ userId }: { userId: string }) => {
                 width={127}
                 height={127}
                 alt="speaker image"
+                className="w-24 h-24 sm:w-32 sm:h-32"
               />
             </button>
             <button
               onClick={() => nav.push('/kakao')}
-              className="absolute bottom-[6rem] right-16"
+              className="absolute bottom-[6rem] right-0 sm:right-16"
             >
               <Image
                 src={'/images/fail.png'}
                 width={127}
                 height={127}
                 alt="cancel button"
+                className="w-20 h-20 sm:w-32 sm:h-32"
               />
             </button>
           </div>
