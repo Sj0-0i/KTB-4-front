@@ -1,15 +1,19 @@
 import Chat from '@/components/article/Chat'
+import { cookies } from 'next/headers'
 
 const Kakao = async () => {
-  const data = await fetchMessage()
+  const cookie = await cookies()
+  const userId = cookie.get('user')?.value
+
+  const data = await fetchMessage(userId as string)
 
   return <Chat data={data} />
 }
 
-const fetchMessage = async () => {
+const fetchMessage = async (userId: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/chat/messages?session_id=test_session_id`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/chat/messages?session_id=${userId}`,
       {
         cache: 'no-store',
       },
