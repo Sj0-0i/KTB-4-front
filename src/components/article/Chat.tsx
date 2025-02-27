@@ -5,10 +5,26 @@ import ChatInput from '@/components/Input/ChatInput'
 import { ChatMessage, ChatMessageLoading } from '@/components/chat/Chat'
 import { useEffect, useRef, useState } from 'react'
 
-const Chat = () => {
+const Chat = ({
+  data,
+}: {
+  data: {
+    messages: {
+      id: string
+      session_id: string
+      type: string
+      content: string
+    }[]
+  }
+}) => {
   const [messages, setMessages] = useState<
     { text: string; isMine?: boolean; isLoading?: boolean }[]
-  >([{ text: '안녕하세요! 창수님!', isMine: false, isLoading: false }])
+  >(
+    data.messages.map((msg) => ({
+      text: msg.content,
+      isMine: msg.type === 'human',
+    })),
+  )
 
   const isLoading =
     messages.length > 0 && messages[messages.length - 1].isLoading
