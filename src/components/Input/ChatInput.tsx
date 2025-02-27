@@ -48,7 +48,7 @@ const ChatInput = ({
       </button>
       <textarea
         ref={textareaRef}
-        className="flex-grow focus:outline-none focus:ring-2 focus:ring-kakaoYellow mx-8a my-6 w-[calc(100%-2rem)] px-4 py-2 text-Mcloude font-[400]"
+        className="flex-grow focus:outline-none focus:ring-2 focus:ring-kakaoYellow mx-4 my-2 sm:mx-8 sm:my-6 w-[calc(100%-2rem)] px-4 py-2 text-Mcloude font-[400]"
         placeholder={
           isLoading ? '잠시만 기다려주세요.' : `메시지를 입력하세요...`
         }
@@ -65,21 +65,25 @@ const ChatInput = ({
       <div className="flex flex-row justify-between items-center w-full">
         <div className="flex justify-between w-[50%]">
           <button>
-            <Smile size={36} color="gray" />
+            <Smile size={36} color="gray" className="size-6 sm:size-9" />
           </button>
           <button>
-            <BookPlus size={36} color="gray" />
+            <BookPlus size={36} color="gray" className="size-6 sm:size-9" />
           </button>
           <button>
-            <MessageCircle size={36} color="gray" />
+            <MessageCircle
+              size={36}
+              color="gray"
+              className="size-6 sm:size-9"
+            />
           </button>
           <button>
-            <Paperclip size={36} color="gray" />
+            <Paperclip size={36} color="gray" className="size-6 sm:size-9" />
           </button>
         </div>
         <button
           onClick={handleSend}
-          className={`w-32 h-16 bg-kakaoYellow rounded-xl text-black text-3xl`}
+          className={`w-24 h-14 sm:w-32 sm:h-16 bg-kakaoYellow rounded-xl text-black text-3xl`}
           disabled={isLoading}
         >
           전송

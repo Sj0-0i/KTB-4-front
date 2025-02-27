@@ -22,7 +22,12 @@ export const Cloude: React.FC<KakaoBubbleProps> = ({
           <div
             className={`absolute ${isRight ? 'right-[-14px] rotate-45 border-l-[24px] border-kakaoYellow' : 'left-[-14px] rotate-45 border-r-[24px] border-white'} top-0  w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent`}
           />
-          {text}
+          {text.split('\n').map((line, index) => (
+            <span key={index}>
+              {line}
+              <br />
+            </span>
+          ))}
         </div>
       </div>
     </div>

@@ -52,7 +52,7 @@ export const Header2Before = () => {
         className={`${!hasUser && 'hidden'}`}
         onClick={() => nav.push('/kakao')}
       >
-        <X size={56} color="gray" />
+        <X size={56} color="gray" className="size-9 sm:size-14" />
       </button>
     </header>
   )

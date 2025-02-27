@@ -83,7 +83,7 @@ const Chat = ({ data, userId }: ChatProps) => {
     >
       <Header />
       <main>
-        <section className="pt-[116px] overflow-y-auto overflow-x-hidden h-[calc(100vh-230px)] scrollbar-hide">
+        <section className="pt-[116px] overflow-y-auto overflow-x-hidden h-[calc(100vh-150px)] sm:h-[calc(100vh-230px)] scrollbar-hide">
           {messages.map((msg, idx) =>
             msg.isLoading ? (
               <ChatMessageLoading key={idx} />
@@ -93,7 +93,7 @@ const Chat = ({ data, userId }: ChatProps) => {
           )}
           <div ref={chatEndRef} />
         </section>
-        <section className="fixed bottom-0 w-full left-[50%] md:w-[600px] bg-white h-[230px] translate-x-[-50%]">
+        <section className="fixed bottom-0 w-full left-[50%] md:w-[600px] bg-white h-[150px] sm:h-[230px] translate-x-[-50%]">
           <ChatInput onSend={addMessage} isLoading={isLoading as boolean} />
         </section>
       </main>

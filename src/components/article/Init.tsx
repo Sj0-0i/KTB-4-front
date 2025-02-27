@@ -74,7 +74,7 @@ const Init = () => {
             className="animate-fade-in"
           />
           <div className="grid grid-cols-2 gap-4 my-4 w-fit mx-auto animate-fade-in">
-            {[50, 60, 70, 800].map((num) => (
+            {[50, 60, 70, 80].map((num) => (
               <button
                 key={num}
                 onClick={() => setAge(num)}

@@ -60,17 +60,17 @@ export default {
           },
         ],
         cloude: [
-          '2.25rem',
+          '1.7rem',
           {
-            lineHeight: '2.5rem',
+            lineHeight: '2rem',
             letterSpacing: '0em',
             fontWeight: '700',
           },
         ],
         Mcloude: [
-          '1.7rem',
+          '1.25rem',
           {
-            lineHeight: '2rem',
+            lineHeight: '1.5rem',
             letterSpacing: '0em',
             fontWeight: '700',
           },
