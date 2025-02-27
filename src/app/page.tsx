@@ -1,9 +1,16 @@
 'use client'
 
-import Init from '@/components/article/Init'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 const Home = () => {
-  return <Init />
+  const nav = useRouter()
+
+  useEffect(() => {
+    nav.push('/kakao')
+  }, [nav])
+
+  return null
 }
 
 export default Home

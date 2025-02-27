@@ -48,7 +48,10 @@ export const Header2Before = () => {
           alt="logo image"
         />
       </div>
-      <button className={`${!hasUser && 'hidden'}`} onClick={() => nav.back()}>
+      <button
+        className={`${!hasUser && 'hidden'}`}
+        onClick={() => nav.push('/kakao')}
+      >
         <X size={56} color="gray" />
       </button>
     </header>
