@@ -1,7 +1,7 @@
 import { BookPlus, Smile, MessageCircle, Paperclip } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const ChatInput = ({
   onSend,
@@ -24,9 +24,14 @@ const ChatInput = ({
     setTimeout(() => {
       setMessage('')
       isSending.current = false
-      textareaRef.current?.focus()
     }, 100)
   }
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.focus()
+    }
+  }, [isLoading, onSend])
 
   return (
     <div className="fixed bottom-0 left-0 w-full bg-white p-3 border-t flex h-full items-center flex-col gap-2">
