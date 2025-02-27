@@ -45,6 +45,9 @@ jobs:
           echo "${{ secrets.ENV }}" > .env
           echo "${{ secrets.GCP_STT_KEY }}" | base64 --decode > gcp-stt-key.json
 
+          echo "=== .env 파일내용 ==="
+          cat .env
+
           docker buildx build \
             --platform linux/amd64 \
             --cache-from=type=registry,ref=${{ secrets.DOCKERHUB_REPO }}/frontend:cache \
@@ -62,10 +65,10 @@ jobs:
           script: |
             echo "Stopping existing frontend container..."
             docker-compose stop frontend
-            
+
             echo "Pulling latest image..."
             docker pull ${{ secrets.DOCKERHUB_REPO }}/frontend:latest
-            
+
             echo "Restarting frontend services..."
             docker-compose up -d frontend
 
