@@ -38,8 +38,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
             echo "Stopping existing frontend container..."
-            docker-compose stop frontend
-            docker-compose rm -f frontend
+            cd /home/ec2-user/app && docker-compose stop frontend || true
+            docker-compose rm -f frontend || true
             
             echo "Pulling latest image..."
             docker pull ${{ secrets.DOCKERHUB_REPO }}/frontend:latest
