@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import { X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 
 export const Header = () => {
   const nav = useRouter()
@@ -28,6 +30,14 @@ export const Header = () => {
 }
 
 export const Header2Before = () => {
+  const nav = useRouter()
+  const [hasUser, setHasUser] = useState(false)
+
+  useEffect(() => {
+    const userCookie = Cookies.get('user')
+    setHasUser(!!userCookie)
+  }, [])
+
   return (
     <header className="fixed sm:w-[100%] left-[50%] md:w-[540px] translate-x-[-50%] center lg:w-[600px] right-0 top-0 w-full flex items-center justify-between py-4 px-9 z-30 bg-[#85DFBF]">
       <div className="relative sm:w-[195px] sm:h-[87px] w-[102px] h-[43px]">
@@ -38,7 +48,9 @@ export const Header2Before = () => {
           alt="logo image"
         />
       </div>
-      <X size={56} color="gray" />
+      <button className={`${!hasUser && 'hidden'}`} onClick={() => nav.back()}>
+        <X size={56} color="gray" />
+      </button>
     </header>
   )
 }
