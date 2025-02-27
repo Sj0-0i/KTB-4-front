@@ -62,6 +62,8 @@ jobs:
             
             echo "Updating .env file..."
             echo "${{ secrets.ENV_FILE }}" > .env
+            echo "${{ secrets.GCP_STT_KEY }}" > .gcp-stt-key.json
+
             
             echo "Pulling latest image..."
             docker pull ${{ secrets.DOCKERHUB_REPO }}/frontend:latest
