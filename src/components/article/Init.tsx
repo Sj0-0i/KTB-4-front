@@ -26,14 +26,32 @@ const Init = () => {
       return v.toString(16)
     })
   }
-
-  const submit = () => {
+  const submit = async () => {
     if (age && like.length === 2) {
       const randomId = generateUUID()
       const user = { id: randomId, age, like }
 
       Cookies.set('user', JSON.stringify(user), { expires: 1 / 24 })
       console.log('쿠키 저장 완료')
+
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user),
+        })
+
+        if (!res.ok) {
+          throw new Error('서버 응답 오류')
+        }
+
+        console.log('서버에 데이터 전송 완료')
+      } catch (error) {
+        console.error('서버로 데이터 전송 실패:', error)
+      }
+
       nav.push('/kakao')
     }
   }
