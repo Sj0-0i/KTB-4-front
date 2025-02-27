@@ -1,13 +1,16 @@
 'use client'
 
-import { Header } from '@/components/Header/Header'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 const Home = () => {
-  return (
-    <div className="container animate-fade-in">
-      <Header />
-    </div>
-  )
+  const nav = useRouter()
+
+  useEffect(() => {
+    nav.push('/kakao')
+  }, [nav])
+
+  return null
 }
 
 export default Home

@@ -59,12 +59,20 @@ export default {
             fontWeight: '600',
           },
         ],
-        p: [
-          '1.25rem',
+        cloude: [
+          '2.25rem',
           {
-            lineHeight: '1.75rem',
+            lineHeight: '2.5rem',
             letterSpacing: '0em',
-            fontWeight: '400',
+            fontWeight: '700',
+          },
+        ],
+        Mcloude: [
+          '1.7rem',
+          {
+            lineHeight: '2rem',
+            letterSpacing: '0em',
+            fontWeight: '700',
           },
         ],
         body: [
@@ -97,6 +105,7 @@ export default {
         foreground: 'var(--foreground)',
         kakaoYellow: '#fef01b',
         kakaoGray: '#556677',
+        kakaoSky: '#83C1F8',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -142,9 +151,9 @@ export default {
         },
       },
       animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in': 'fade-in 0.5s forwards',
+        'accordion-down': 'accordion-down 0.5s ease-out',
+        'accordion-up': 'accordion-up 0.5s ease-out',
+        'fade-in': 'fade-in 1s forwards',
         'fade-out': 'fade-out 0.5s forwards',
         'appear-up': 'appear-up 0.5s forwards',
         'disappear-bottom': 'disappear-bottom 0.5s forwards',
