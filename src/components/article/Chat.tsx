@@ -83,7 +83,7 @@ const Chat = ({ data, userId }: ChatProps) => {
     >
       <Header />
       <main>
-        <section className="pt-[116px] overflow-y-auto overflow-x-hidden h-[calc(100vh-150px)] sm:h-[calc(100vh-230px)] scrollbar-hide">
+        <section className="pt-[116px] overflow-y-auto overflow-x-hidden h-[calc(100vh-150px)] sm:h-[calc(100vh-230px)] pb-[40px] scrollbar-hide">
           {messages.map((msg, idx) =>
             msg.isLoading ? (
               <ChatMessageLoading key={idx} />
