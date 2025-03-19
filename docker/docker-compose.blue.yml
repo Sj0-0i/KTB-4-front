@@ -4,7 +4,9 @@ services:
   # 서비스의 이름
   frontend:
     # 현재 디렉토리에서의 Dockerfile을 사용하여 Docker 이미지를 빌드
-    build: .
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     container_name: nextjs-blue
     networks:
       - frontend
