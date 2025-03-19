@@ -25,7 +25,6 @@ jobs:
           cp .gitignore deploy/
           cp appspec.yml deploy/
           cp next.config.ts deploy/
-          cp next-env.d.ts deploy/
           cp package.json deploy/
           cp package-lock.json deploy/
           cp postcss.config.mjs deploy/
