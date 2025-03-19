@@ -18,12 +18,19 @@ jobs:
       - name: Create Deployment ZIP
         run: |
           mkdir deploy
-          cp -r . deploy/  # 전체 프로젝트 파일 포함
-          cp docker/docker-compose.blue.yml deploy/
-          cp docker/docker-compose.green.yml deploy/
+          cp -r docker deploy/
+          cp -r public deploy/
+          cp -r scripts deploy/
+          cp -r src deploy/
+          cp .gitignore deploy/
           cp appspec.yml deploy/
-          cp docker/Dockerfile deploy/
-          cp scripts/deploy.sh deploy/
+          cp next.config.ts deploy/
+          cp next-env.d.ts deploy/
+          cp package.json deploy/
+          cp package-lock.json deploy/
+          cp postcss.config.mjs deploy/
+          cp tailwind.config.ts deploy/
+          cp tsconfig.json deploy/
           zip -r -qq ./nextjs-build.zip ./deploy
 
       # 3. AWS 연결
