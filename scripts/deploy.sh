@@ -30,6 +30,11 @@ if [ -z "$EXIST_BLUE" ]; then
 
   echo "green 중단 완료 : $(date '+%Y-%m-%d %H:%M:%S')" >> /home/ubuntu/app/deploy.log
 
+  # Nginx가 Blue 컨테이너를 바라보도록 설정 변경
+    echo "upstream nextjs_frontend {
+      server 127.0.0.1:3001 max_fails=3 fail_timeout=10s;
+    }" | sudo tee /etc/nginx/conf.d/upstream.conf > /dev/null
+
 # blue가 실행 중이면 green up
 else
   echo "green 배포 시작 : $(date '+%Y-%m-%d %H:%M:%S')" >> /home/ubuntu/app/deploy.log
@@ -44,6 +49,11 @@ else
   sudo docker image prune -af
 
   echo "blue 중단 완료 : $(date '+%Y-%m-%d %H:%M:%S')" >> /home/ubuntu/app/deploy.log
+
+  echo "upstream nextjs_frontend {
+    server 127.0.0.1:3002 max_fails=3 fail_timeout=10s;
+  }" | sudo tee /etc/nginx/conf.d/upstream.conf > /dev/null
+
 fi
 
 echo "배포 종료  : $(date '+%Y-%m-%d %H:%M:%S')" >> /home/ubuntu/app/deploy.log
