@@ -31,7 +31,7 @@ jobs:
       # 3. Docker 이미지 빌드 및 푸쉬
       - name: Build and Push Docker Image
         run: |
-          docker build -t frontapp .
+          docker build -f docker/Dockerfile -t frontapp .
           docker tag frontapp:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/myapp:latest
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/myapp:latest
           
