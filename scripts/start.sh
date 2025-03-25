@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE="120569628358.dkr.ecr.ap-northeast-2.amazonaws.com/frontapp:latest"
+IMAGE="120569628358.dkr.ecr.ap-northeast-2.amazonaws.com/my-app:latest"
 CONTAINER_NAME="frontend_container"
 
 # ECR에서 최신 이미지 pull
