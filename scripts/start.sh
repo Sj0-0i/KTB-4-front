@@ -3,6 +3,10 @@
 IMAGE="120569628358.dkr.ecr.ap-northeast-2.amazonaws.com/frontend:latest"
 CONTAINER_NAME="frontend_container"
 
+aws ecr get-login-password --region ap-northeast-2 \
+| docker login --username AWS \
+  --password-stdin 120569628358.dkr.ecr.ap-northeast-2.amazonaws.com
+
 # ECR에서 최신 이미지 pull
 echo "Pulling latest image from ECR"
 docker pull $IMAGE
