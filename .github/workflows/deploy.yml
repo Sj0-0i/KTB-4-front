@@ -14,25 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 2. ZIP 파일 생성 (빌드 없이 코드만 압축)
-      - name: Create Deployment ZIP
-        run: |
-          mkdir deploy
-          cp -r docker deploy/
-          cp -r public deploy/
-          cp -r scripts deploy/
-          cp -r src deploy/
-          cp .gitignore deploy/
-          cp appspec.yml deploy/
-          cp next.config.ts deploy/
-          cp package.json deploy/
-          cp package-lock.json deploy/
-          cp postcss.config.mjs deploy/
-          cp tailwind.config.ts deploy/
-          cp tsconfig.json deploy/
-          zip -r -qq ./nextjs-build.zip ./deploy
-
-      # 3. AWS 연결
+      # 2. AWS 연결 (ECR)
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -40,16 +22,41 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # 4. S3에 ZIP 파일 업로드
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region ap-northeast-2 | docker login \
+          --username AWS \
+          --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com
+
+      # 3. Docker 이미지 빌드 및 푸쉬
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t frontapp .
+          docker tag frontapp:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/myapp:latest
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/myapp:latest
+          
+      # 4. 쉘 스크립트 실행 권한 부여
+      - name: Set execute permissions
+        run: chmod +x scripts/*.sh
+
+      # 5. ZIP 파일 생성
+      - name: Create ZIP
+        run: |
+          mkdir deploy
+          cp -r scripts deploy/
+          cp appspec.yml deploy/
+          zip -r -qq ./deploy-spec.zip ./deploy
+
+      # 6. S3에 ZIP 파일 업로드
       - name: Upload ZIP to S3
         run: |
-          aws s3 cp --region ap-northeast-2 ./nextjs-build.zip s3://codedeploy-7week-lily/nextjs-build.zip
+          aws s3 cp --region ap-northeast-2 ./deploy-spec.zip s3://250325-ktblily-bucket/deploy-spec.zip
 
-      # 5. AWS CodeDeploy 배포 요청
+      # 7. AWS CodeDeploy 배포 요청
       - name: Deploy to AWS CodeDeploy
         run: |
           aws deploy create-deployment \
-            --application-name codedeploy-web-7week \
+            --application-name frontend-codedeploy-app \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --deployment-group-name codedeploy-web-7week-group \
-            --s3-location bucket=codedeploy-7week-lily,bundleType=zip,key=nextjs-build.zip
+            --deployment-group-name frontend-group \
+            --s3-location bucket=250325-ktblily-bucket,bundleType=zip,key=deploy-spec.zip
