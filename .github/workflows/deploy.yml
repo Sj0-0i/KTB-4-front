@@ -50,7 +50,7 @@ jobs:
       # 6. S3에 ZIP 파일 업로드
       - name: Upload ZIP to S3
         run: |
-          aws s3 cp --region ap-northeast-2 ./deploy-spec.zip s3://250325-ktblily-bucket/deploy-front.zip
+          aws s3 cp --region ap-northeast-2 ./deploy-front.zip s3://250325-ktblily-bucket/deploy-front.zip
 
       # 7. AWS CodeDeploy 배포 요청
       - name: Deploy to AWS CodeDeploy
