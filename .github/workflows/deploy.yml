@@ -32,8 +32,8 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           docker build -f docker/Dockerfile -t frontapp .
-          docker tag frontapp:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/myapp:latest
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/myapp:latest
+          docker tag frontapp:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontapp:latest
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontapp:latest
           
       # 4. 쉘 스크립트 실행 권한 부여
       - name: Set execute permissions
