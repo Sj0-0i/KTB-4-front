@@ -58,5 +58,5 @@ jobs:
           aws deploy create-deployment \
             --application-name frontend-app-prod \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --deployment-group-name frontend-group \
+            --deployment-group-name frontend-group-prod \
             --s3-location bucket=250325-ktblily-bucket-prod,bundleType=zip,key=deploy-front.zip
