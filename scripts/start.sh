@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE="120569628358.dkr.ecr.ap-northeast-2.amazonaws.com/frontend:latest"
+IMAGE="120569628358.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-prod:latest"
 CONTAINER_NAME="frontend_container"
 
 aws ecr get-login-password --region ap-northeast-2 \
