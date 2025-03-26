@@ -57,6 +57,7 @@ jobs:
         run: |
           aws deploy create-deployment \
             --application-name frontend-app-prod \
-            --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name frontend-group-prod \
-            --s3-location bucket=250325-ktblily-bucket-prod,bundleType=zip,key=deploy-front.zip
+            --s3-location bucket=250325-ktblily-bucket-prod,bundleType=zip,key=deploy-front.zip \
+            --file-exists-behavior OVERWRITE \
+            --region ap-northeast-2
