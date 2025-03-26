@@ -14,9 +14,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
       # 2. AWS 연결 (ECR)
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -31,17 +28,13 @@ jobs:
           --username AWS \
           --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com
 
-      # 3. Docker 이미지 빌드 및 푸쉬 (빌드 캐시 적용)
-      - name: Build and Push Docker Image with Cache
+      # 3. Docker 이미지 빌드 및 푸쉬
+      - name: Build and Push Docker Image
         run: |
-          docker buildx build \
-            --platform linux/amd64 \
-            --file docker/Dockerfile \
-            --cache-from=type=registry,ref=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-prod:buildcache \
-            --cache-to=type=registry,ref=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-prod:buildcache,mode=max \
-            -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-prod:latest \
-            --push .
-          
+          docker build -f docker/Dockerfile -t frontend-prod .
+          docker tag frontend-prod:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-prod:latest
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-prod:latest
+
       # 4. 쉘 스크립트 실행 권한 부여
       - name: Set execute permissions
         run: chmod +x scripts/*.sh
