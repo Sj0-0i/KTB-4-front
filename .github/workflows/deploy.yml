@@ -31,9 +31,11 @@ jobs:
       # 3. Docker 이미지 빌드 및 푸쉬
       - name: Build and Push Docker Image
         run: |
-          docker build -f docker/Dockerfile -t frontend-prod .
-          docker tag frontend-prod:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-prod:latest
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-prod:latest
+          echo "NEXT_PUBLIC_SERVER_URL=${{ secrets.SERVER_URL }}" >> .env
+          
+           docker build -f docker/Dockerfile -t frontend-dev .
+           docker tag frontend-dev:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-dev:latest
+           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/frontend-dev:latest
 
       # 4. 쉘 스크립트 실행 권한 부여
       - name: Set execute permissions
@@ -50,15 +52,13 @@ jobs:
       # 6. S3에 ZIP 파일 업로드
       - name: Upload ZIP to S3
         run: |
-          aws s3 cp --region ap-northeast-2 ./deploy-front.zip s3://250325-ktblily-bucket-prod/deploy-front.zip
+          aws s3 cp --region ap-northeast-2 ./deploy-front.zip s3://250325-ktblily-bucket-dev/deploy-front.zip
 
       # 7. AWS CodeDeploy 배포 요청
       - name: Deploy to AWS CodeDeploy
         run: |
           aws deploy create-deployment \
-            --application-name frontend-app-prod \
-            --deployment-group-name frontend-group-prod \
-            --s3-location bucket=250325-ktblily-bucket-prod,bundleType=zip,key=deploy-front.zip \
+            --application-name frontend-app-dev \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --file-exists-behavior OVERWRITE \
-            --region ap-northeast-2
+            --deployment-group-name frontend-group-dev \
+            --s3-location bucket=250325-ktblily-bucket-dev,bundleType=zip,key=deploy-front.zip
